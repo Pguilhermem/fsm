@@ -3,7 +3,6 @@
 // ARQUIVO:    main.c
 //
 // TÍTULO:    Exemplo Principal de Uso da Máquina de Estados do Conversor
-//            (versão simplificada com switch-case)
 //
 //! Este arquivo contém a função principal que inicializa o microcontrolador
 //! e chama as funções do módulo da máquina de estados (FSM) para simular
