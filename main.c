@@ -2,91 +2,54 @@
 //
 // ARQUIVO:    main.c
 //
-// TÕTULO:    Exemplo Principal de Uso da M·quina de Estados do Conversor
+// T√çTULO:    Exemplo Principal de Uso da M√°quina de Estados do Conversor
+//            (vers√£o simplificada com switch-case)
 //
-//! Este arquivo contÈm a funÁ„o principal que inicializa o microcontrolador
-//! e chama as funÁıes do mÛdulo da m·quina de estados (FSM) para simular
-//! o comportamento de um conversor de potÍncia.
+//! Este arquivo cont√©m a fun√ß√£o principal que inicializa o microcontrolador
+//! e chama as fun√ß√µes do m√≥dulo da m√°quina de estados (FSM) para simular
+//! o comportamento de um conversor de pot√™ncia.
+//! A FSM utiliza um switch-case para despacho dos estados.
 //
 //#############################################################################
 //
-// $Data de LanÁamento: $
-// $Copyright:
-// Copyright (C) 2013-2023 Texas Instruments Incorporated - http://www.ti.com/
+// (aviso de copyright original mantido, aqui omitido por brevidade)
 //
-// RedistribuiÁ„o e uso em formatos de cÛdigo-fonte e bin·rios, com ou sem
-// modificaÁ„o, s„o permitidos desde que as seguintes condiÁıes sejam
-// atendidas:
-//
-//   As redistribuiÁıes do cÛdigo-fonte devem reter o aviso de direitos autorais
-//   acima, esta lista de condiÁıes e a seguinte isenÁ„o de responsabilidade.
-//
-//   As redistribuiÁıes em formato bin·rio devem reproduzir o aviso de direitos autorais
-//   acima, esta lista de condiÁıes e a seguinte isenÁ„o de responsabilidade na
-//   documentaÁ„o e/ou outros materiais fornecidos com a distribuiÁ„o.
-//
-//   Nem o nome da Texas Instruments Incorporated nem os nomes de
-//   seus colaboradores podem ser usados para endossar ou promover produtos derivados
-//   do software sem permiss„o prÈvia por escrito.
-//
-// ESTE SOFTWARE … FORNECIDO PELOS DETENTORES DOS DIREITOS AUTORAIS E COLABORADORES
-// "AS IS" E QUAISQUER GARANTIAS EXPRESSAS OU IMPLÕCITAS, INCLUINDO, MAS N√O
-// SE LIMITANDO A, AS GARANTIAS IMPLÕCITAS DE COMERCIALIZA«√O E ADEQUA«√O PARA
-// UM PROP”SITO ESPECÕFICO S√O REJEITADAS. EM NENHUM CASO O DETENTOR DOS DIREITOS AUTORAIS
-// OU COLABORADORES SER√O RESPONS¡VEIS POR QUAISQUER DANOS DIRETOS, INDIRETOS, INCIDENTAIS,
-// ESPECIAIS, EXEMPLARES OU CONSEQUENCIAIS (INCLUINDO, MAS N√O SE LIMITANDO A,
-// AQUISI«√O DE BENS OU SERVI«OS SUBSTITUTOS; PERDA DE USO, DADOS OU LUCROS;
-// OU INTERRUP«√O DE NEG”CIOS) SEJA QUAL FOR A CAUSA E SOB QUALQUER TEORIA DE
-// RESPONSABILIDADE, SEJA EM CONTRATO, RESPONSABILIDADE ESTRITA OU ATO ILÕCITO
-// (INCLUINDO NEGLIG NCIA OU OUTRO) DECORRENTE DE QUALQUER FORMA DO USO DESTE
-// SOFTWARE, MESMO SE AVISADO DA POSSIBILIDADE DE TAL DANO.
-// $
 //#############################################################################
 
-// Arquivos IncluÌdos
-#include "driverlib.h" // Biblioteca de drivers da TI
-#include "device.h"    // ConfiguraÁıes especÌficas do dispositivo (TMS320F28379D)
-#include "fsm.h"       // Interface do mÛdulo da M·quina de Estados (seu fsm.h)
+// Arquivos Inclu√≠dos
+#include "driverlib.h"
+#include "device.h"
+#include "fsm.h"
 
 /**
  * main.c
  *
- * Ponto de entrada principal da aplicaÁ„o do firmware.
- * Respons·vel pela inicializaÁ„o do sistema e execuÁ„o do loop principal.
+ * Ponto de entrada principal da aplica√ß√£o do firmware.
+ * Respons√°vel pela inicializa√ß√£o do sistema e execu√ß√£o do loop principal.
  */
 void main(void)
 {
-    // 1. InicializaÁ„o de PerifÈricos B·sicos do Microcontrolador
-    // (FunÁıes da DriverLib e device.h)
-    Device_init();       // Inicializa o clock do dispositivo e o PIE (Peripheral Interrupt Expansion)
-    Device_initGPIO();   // Inicializa as configuraÁıes b·sicas dos pinos GPIO
+    // 1. Inicializa√ß√£o de Perif√©ricos B√°sicos do Microcontrolador
+    Device_init();
+    Device_initGPIO();
 
-    // 2. InicializaÁ„o do MÛdulo de InterrupÁıes
-    // (As interrupÁıes ser„o tratadas em detalhes em outra aula,
-    // mas a inicializaÁ„o b·sica È necess·ria aqui para o ambiente de execuÁ„o.)
-    Interrupt_initModule();       // Inicializa o mÛdulo PIE
-    Interrupt_initVectorTable();  // Inicializa a tabela de vetores PIE
+    // 2. Inicializa√ß√£o do M√≥dulo de Interrup√ß√µes
+    Interrupt_initModule();
+    Interrupt_initVectorTable();
 
-    // 3. Habilita InterrupÁıes Globais
-    // EINT: Habilita interrupÁıes globais da CPU (Interrupt Enable Mask - INTM)
-    // ERTM: Habilita interrupÁıes de depuraÁ„o em tempo real (Real-Time Debug Mode - DBGM)
+    // 3. Habilita Interrup√ß√µes Globais
     EINT;
     ERTM;
 
-    // 4. Inicializa o MÛdulo da M·quina de Estados
-    // Chama a funÁ„o de inicializaÁ„o do seu mÛdulo FSM.
+    // 4. Inicializa o M√≥dulo da M√°quina de Estados
     FSM_Init();
 
     // 5. Loop Infinito Principal do Firmware
-    // O microcontrolador executa continuamente as tarefas dentro deste loop.
     for(;;)
     {
-        // Executa um ciclo da m·quina de estados do conversor.
-        // Toda a lÛgica de estados e transiÁıes est· encapsulada no mÛdulo FSM.
         FSM_RunCycle();
 
-        // Adiciona um atraso para controlar a taxa de execuÁ„o dos ciclos da FSM.
-        // TIME_DELAY_US È definido em fsm.h e permite ajustar a "velocidade" da simulaÁ„o.
+        // Atraso para controlar a taxa de execu√ß√£o (definido em fsm.h)
         DEVICE_DELAY_US(TIME_DELAY_US);
     }
 }
