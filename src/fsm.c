@@ -1,15 +1,15 @@
-#include "fsm.h"         // Inclui a interface do próprio módulo FSM
-#include "driverlib.h"   // Para DEVICE_DELAY_US (simulação de tempo)
-#include "device.h"      // Para Device_init, etc. (se alguma inicializacao ficar aqui)
-#include <stdbool.h>     // Para o tipo bool
+// fsm.c
+#include "fsm.h"
+#include "driverlib.h"
+#include "device.h"
+#include <stdbool.h>
 
-// --- Variáveis de Estado Globais do Módulo (Definição) ---
+// --- VariÃ¡veis de Estado Globais do MÃ³dulo (DefiniÃ§Ã£o) ---
 volatile ConverterState_t g_converterState = CONVERTER_STATE_INIT;
 volatile unsigned int g_faultFlags = 0U;
 volatile unsigned long g_operationCounter = 0UL;
 
-// --- Implementações das Funções de Evento Simuladas (Internas) ---
-
+// --- VariÃ¡veis Internas (simulaÃ§Ã£o de eventos) ---
 static unsigned int startup_counter = 0U;
 static bool enable_cmd = false;
 static bool oc_fault_sim = false;
@@ -18,8 +18,7 @@ static bool ot_fault_sim = false;
 static bool comm_err_sim = false;
 static unsigned int recovery_counter = 0U;
 
-
-// Protótipos de Funções Handler de Estado (Internas)
+// ProtÃ³tipos das FunÃ§Ãµes Handler de Estado (Internas)
 static void state_init_handler(void);
 static void state_standby_handler(void);
 static void state_operating_handler(void);
@@ -29,25 +28,7 @@ static void state_fault_temp_handler(void);
 static void state_fault_comm_handler(void);
 static void state_recovering_handler(void);
 
-// Typedef Interno para Ponteiro de Função de Handler de Estado
-typedef void (*StateHandler_t_Internal)(void);
-
-// Array Global de Ponteiros para Funções (Jump Table)
-static StateHandler_t_Internal g_stateHandlers[] =
-{
-    state_init_handler,
-    state_standby_handler,
-    state_operating_handler,
-    state_fault_overcurrent_handler,
-    state_fault_overvoltage_handler,
-    state_fault_temp_handler,
-    state_fault_comm_handler,
-    state_recovering_handler
-};
-#define NUM_STATES (sizeof(g_stateHandlers) / sizeof(StateHandler_t_Internal))
-
-
-// Funções de Evento Simuladas (Internas ao módulo)
+// FunÃ§Ãµes de Evento Simuladas (Internas)
 static bool check_startup_complete(void);
 static bool check_enable_command(void);
 static bool check_overcurrent_fault(void);
@@ -57,7 +38,7 @@ static bool check_comm_error(void);
 static bool check_recovery_complete(void);
 
 
-// --- Implementações das Funções Públicas do Módulo FSM ---
+// --- ImplementaÃ§Ãµes das FunÃ§Ãµes PÃºblicas do MÃ³dulo FSM ---
 
 void FSM_Init(void)
 {
@@ -65,7 +46,7 @@ void FSM_Init(void)
     g_faultFlags = 0U;
     g_operationCounter = 0UL;
 
-    // Resetar contadores das funcoes de evento simuladas para um estado limpo
+    // Resetar contadores das funÃ§Ãµes de evento simuladas
     startup_counter = 0U;
     enable_cmd = false;
     oc_fault_sim = false;
@@ -77,18 +58,50 @@ void FSM_Init(void)
 
 void FSM_RunCycle(void)
 {
-    if (g_converterState < NUM_STATES && g_stateHandlers[g_converterState] != NULL)
+    // Despacho baseado no estado atual usando switch-case
+    switch (g_converterState)
     {
-        g_stateHandlers[g_converterState]();
-    }
-    else
-    {
-        g_converterState = CONVERTER_STATE_FAULT_OVERCURRENT;
+        case CONVERTER_STATE_INIT:
+            state_init_handler();
+            break;
+
+        case CONVERTER_STATE_STANDBY:
+            state_standby_handler();
+            break;
+
+        case CONVERTER_STATE_OPERATING:
+            state_operating_handler();
+            break;
+
+        case CONVERTER_STATE_FAULT_OVERCURRENT:
+            state_fault_overcurrent_handler();
+            break;
+
+        case CONVERTER_STATE_FAULT_OVERVOLTAGE:
+            state_fault_overvoltage_handler();
+            break;
+
+        case CONVERTER_STATE_FAULT_TEMP:
+            state_fault_temp_handler();
+            break;
+
+        case CONVERTER_STATE_FAULT_COMM:
+            state_fault_comm_handler();
+            break;
+
+        case CONVERTER_STATE_RECOVERING:
+            state_recovering_handler();
+            break;
+
+        default:
+            // Estado invÃ¡lido: forÃ§a entrada em estado de falta
+            g_converterState = CONVERTER_STATE_FAULT_OVERCURRENT;
+            break;
     }
 }
 
 
-// --- Implementações das Funções Handler de Estado (Internas) ---
+// --- ImplementaÃ§Ãµes das FunÃ§Ãµes Handler de Estado (Internas) ---
 
 void state_init_handler(void)
 {
@@ -112,21 +125,22 @@ void state_operating_handler(void)
 
     if (check_overcurrent_fault())
     {
-        g_faultFlags = g_faultFlags | FAULT_OVERCURRENT;
+        g_faultFlags |= FAULT_OVERCURRENT;
         g_converterState = CONVERTER_STATE_FAULT_OVERCURRENT;
     }
     else if (check_overvoltage_fault())
     {
-        g_faultFlags = g_faultFlags | FAULT_OVERVOLTAGE;
+        g_faultFlags |= FAULT_OVERVOLTAGE;
         g_converterState = CONVERTER_STATE_FAULT_OVERVOLTAGE;
     }
+    // Outras verificaÃ§Ãµes de falta podem ser adicionadas aqui se desejado
 }
 
 void state_fault_overcurrent_handler(void)
 {
     if (check_recovery_complete())
     {
-        g_faultFlags = g_faultFlags & (~FAULT_OVERCURRENT);
+        g_faultFlags &= ~FAULT_OVERCURRENT;
         g_converterState = CONVERTER_STATE_RECOVERING;
     }
 }
@@ -135,7 +149,7 @@ void state_fault_overvoltage_handler(void)
 {
     if (check_recovery_complete())
     {
-        g_faultFlags = g_faultFlags & (~FAULT_OVERVOLTAGE);
+        g_faultFlags &= ~FAULT_OVERVOLTAGE;
         g_converterState = CONVERTER_STATE_RECOVERING;
     }
 }
@@ -144,7 +158,7 @@ void state_fault_temp_handler(void)
 {
     if (check_recovery_complete())
     {
-        g_faultFlags = g_faultFlags & (~FAULT_TEMPERATURE);
+        g_faultFlags &= ~FAULT_TEMPERATURE;
         g_converterState = CONVERTER_STATE_RECOVERING;
     }
 }
@@ -153,7 +167,7 @@ void state_fault_comm_handler(void)
 {
     if (check_recovery_complete())
     {
-        g_faultFlags = g_faultFlags & (~FAULT_COMM_ERROR);
+        g_faultFlags &= ~FAULT_COMM_ERROR;
         g_converterState = CONVERTER_STATE_RECOVERING;
     }
 }
@@ -167,46 +181,67 @@ void state_recovering_handler(void)
 }
 
 
+// --- ImplementaÃ§Ãµes das FunÃ§Ãµes de Evento Simuladas (Internas) ---
+
 static bool check_startup_complete(void) {
-    // Usa TIME_STARTUP definido no fsm.h
-    if (g_converterState == CONVERTER_STATE_INIT && startup_counter++ > TIME_STARTUP) {
-        startup_counter = 0U; return true; }
+    // Verifica se o estado Ã© INIT e se o contador de inicializaÃ§Ã£o excedeu o limite
+    if (g_converterState == CONVERTER_STATE_INIT) {
+        if (++startup_counter > TIME_STARTUP) {
+            startup_counter = 0U;
+            return true;
+        }
+    }
     return false;
 }
 
 static bool check_enable_command(void) {
+    // Simula comando de habilitaÃ§Ã£o externo (ativado via depurador)
     if (g_converterState == CONVERTER_STATE_STANDBY && enable_cmd) {
-        enable_cmd = false; return true; }
+        enable_cmd = false;
+        return true;
+    }
     return false;
 }
 
 static bool check_overcurrent_fault(void) {
     if (g_converterState == CONVERTER_STATE_OPERATING && oc_fault_sim) {
-        oc_fault_sim = false; return true; }
+        oc_fault_sim = false;
+        return true;
+    }
     return false;
 }
 
 static bool check_overvoltage_fault(void) {
     if (g_converterState == CONVERTER_STATE_OPERATING && ov_fault_sim) {
-        ov_fault_sim = false; return true; }
+        ov_fault_sim = false;
+        return true;
+    }
     return false;
 }
 
 static bool check_overtemp_fault(void) {
     if (g_converterState == CONVERTER_STATE_OPERATING && ot_fault_sim) {
-        ot_fault_sim = false; return true; }
+        ot_fault_sim = false;
+        return true;
+    }
     return false;
 }
 
 static bool check_comm_error(void) {
     if (g_converterState == CONVERTER_STATE_OPERATING && comm_err_sim) {
-        comm_err_sim = false; return true; }
+        comm_err_sim = false;
+        return true;
+    }
     return false;
 }
 
 static bool check_recovery_complete(void) {
-    // Usa TIME_RECOVERY definido no fsm.h
-    if (g_converterState >= CONVERTER_STATE_FAULT_OVERCURRENT && recovery_counter++ > TIME_RECOVERY) {
-        recovery_counter = 0U; return true; }
+    // Verifica se estÃ¡ em algum estado de falta ou recuperaÃ§Ã£o e se o contador excedeu o limite
+    if (g_converterState >= CONVERTER_STATE_FAULT_OVERCURRENT) {
+        if (++recovery_counter > TIME_RECOVERY) {
+            recovery_counter = 0U;
+            return true;
+        }
+    }
     return false;
 }
