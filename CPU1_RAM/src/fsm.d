@@ -1,19 +1,19 @@
 # FIXED
 
 src/fsm.obj: ../src/fsm.c
-src/fsm.obj: C:/Users/guilh/Documents/WSC2000/FSM/inc/fsm.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/_ti_config.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/linkage.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdint.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/_stdint40.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sys/stdint.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sys/cdefs.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sys/_types.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/machine/_types.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/machine/_stdint.h
-src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sys/_stdint.h
-src/fsm.obj: C:/Users/guilh/Documents/WSC2000/FSM/device/driverlib.h
+src/fsm.obj: C:/Users/guilh/OneDrive\ -\ Universidade\ Federal\ de\ Juiz\ de\ Fora/Documentos/GitC2000/fsm/inc/fsm.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/stdbool.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/_ti_config.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/linkage.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/stdint.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/_stdint40.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/sys/stdint.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/sys/cdefs.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/sys/_types.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/machine/_types.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/machine/_stdint.h
+src/fsm.obj: C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/sys/_stdint.h
+src/fsm.obj: C:/Users/guilh/OneDrive\ -\ Universidade\ Federal\ de\ Juiz\ de\ Fora/Documentos/GitC2000/fsm/device/driverlib.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/adc.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/inc/hw_adc.h
@@ -88,35 +88,35 @@ src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/upp.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/inc/hw_upp.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/version.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h
-src/fsm.obj: C:/Users/guilh/Documents/WSC2000/FSM/device/device.h
+src/fsm.obj: C:/Users/guilh/OneDrive\ -\ Universidade\ Federal\ de\ Juiz\ de\ Fora/Documentos/GitC2000/fsm/device/device.h
 
 ../src/fsm.c:
 
-C:/Users/guilh/Documents/WSC2000/FSM/inc/fsm.h:
+C:/Users/guilh/OneDrive\ -\ Universidade\ Federal\ de\ Juiz\ de\ Fora/Documentos/GitC2000/fsm/inc/fsm.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/stdbool.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/_ti_config.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/_ti_config.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/linkage.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/linkage.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdint.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/stdint.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/_stdint40.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/_stdint40.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sys/stdint.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/sys/stdint.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sys/cdefs.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/sys/cdefs.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sys/_types.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/sys/_types.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/machine/_types.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/machine/_types.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/machine/_stdint.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/machine/_stdint.h:
 
-C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sys/_stdint.h:
+C:/ti/ccs2050/ccs/tools/compiler/ti-cgt-c2000_25.11.0.LTS/include/sys/_stdint.h:
 
-C:/Users/guilh/Documents/WSC2000/FSM/device/driverlib.h:
+C:/Users/guilh/OneDrive\ -\ Universidade\ Federal\ de\ Juiz\ de\ Fora/Documentos/GitC2000/fsm/device/driverlib.h:
 
 C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h:
 
@@ -266,5 +266,5 @@ C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/version.h:
 
 C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h:
 
-C:/Users/guilh/Documents/WSC2000/FSM/device/device.h:
+C:/Users/guilh/OneDrive\ -\ Universidade\ Federal\ de\ Juiz\ de\ Fora/Documentos/GitC2000/fsm/device/device.h:
 
